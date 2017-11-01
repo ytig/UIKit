@@ -144,10 +144,10 @@ public class SwapView extends UnRecyclerView implements TouchController.TouchLis
                 float value = (scale - 1) / 0.25f;
                 if (value > 0) {
                     int top, bottom;
-                    RectUtil.measure(child, mTmp);
+                    RectUtil.measure(child, mTmp, true);
                     top = mTmp.top;
                     bottom = mTmp.bottom;
-                    RectUtil.measure(this, mTmp);
+                    RectUtil.measure(this, mTmp, true);
                     top -= mTmp.top;
                     bottom -= mTmp.top;
                     top = (int) (top + getScrollY() + child.getPaddingTop() * child.getScaleY());
