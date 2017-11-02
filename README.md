@@ -2,6 +2,7 @@
 
 UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
+</br>
 
 如果你需要制作转场动画，可以使用**TransitionController**负责动画数值计算。
 
@@ -9,6 +10,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 如果你需要实现滚动效果，**ViewGroupMonitor**可以实时提供控件位置信息。
 
+</br>
 
 这里提供了**下拉刷新**组件，基于嵌套滑动实现，列表容器可更替。
 
@@ -18,6 +20,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 自定义组件辅助类
 
+</br>
 
 #### RectUtil
 
@@ -27,6 +30,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `RectUtil.measure(view, rect, traverse);`
 
+</br>
 
 #### ViewMonitor&ViewGroupMonitor
 
@@ -42,6 +46,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `ViewGroupMonitor.localMonitor(parent, listener);`
 
+</br>
 
 #### AnimatorManager
 
@@ -57,6 +62,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `manager.setTarget(view, target);`
 
+</br>
 
 #### TransitionController
 
@@ -72,6 +78,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `controller.setTarget(target);`
 
+</br>
 
 #### TouchController
 
@@ -90,6 +97,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 通用组件
 
+</br>
 
 #### Refresh
 
@@ -105,6 +113,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
         void bottomRefresh();
     }
 
+</br>
 
 #### Salon
 
@@ -118,6 +127,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 其它
 
+</br>
 
 #### Wrapper
 
@@ -125,6 +135,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 接入：插入RecyclerView、Adapter之间，解耦实现首尾项、左滑删除等功能
 
+</br>
 
 #### NotifyManager
 
