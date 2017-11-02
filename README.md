@@ -2,11 +2,13 @@
 
 UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
+
 如果你需要制作转场动画，可以使用**TransitionController**负责动画数值计算。
 
 如果你需要识别翻页手势，可以使用**TouchController**负责触控采集。
 
 如果你需要实现滚动效果，**ViewGroupMonitor**可以实时提供控件位置信息。
+
 
 这里提供了**下拉刷新**组件，基于嵌套滑动实现，列表容器可更替。
 
@@ -16,6 +18,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 自定义组件辅助类
 
+
 #### RectUtil
 
 功能：获取控件位置
@@ -23,6 +26,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 接入：调用静态方法
 
 `RectUtil.measure(view, rect, traverse);`
+
 
 #### ViewMonitor&ViewGroupMonitor
 
@@ -38,6 +42,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `ViewGroupMonitor.localMonitor(parent, listener);`
 
+
 #### AnimatorManager
 
 简介：简易防突变动画
@@ -52,6 +57,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `manager.setTarget(view, target);`
 
+
 #### TransitionController
 
 功能：防突变动画
@@ -65,6 +71,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 `controller.getTarget();`
 
 `controller.setTarget(target);`
+
 
 #### TouchController
 
@@ -83,6 +90,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 通用组件
 
+
 #### Refresh
 
 简介：下拉刷新
@@ -97,6 +105,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
         void bottomRefresh();
     }
 
+
 #### Salon
 
 简介：图片查看器
@@ -109,11 +118,13 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 其它
 
+
 #### Wrapper
 
 简介：RecyclerView.Adapter包装库
 
 接入：插入RecyclerView、Adapter之间，解耦实现首尾项、左滑删除等功能
+
 
 #### NotifyManager
 
