@@ -1,5 +1,7 @@
 # 综述
 
+<br>
+
 UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 <br>
@@ -30,8 +32,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `RectUtil.measure(view, rect, traverse);`
 
-<br>
-
 #### ViewMonitor&ViewGroupMonitor
 
 简介：控件位置变化监听
@@ -45,8 +45,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 `ViewGroupMonitor.globalMonitor(parent, listener);`
 
 `ViewGroupMonitor.localMonitor(parent, listener);`
-
-<br>
 
 #### AnimatorManager
 
@@ -62,8 +60,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 `manager.setTarget(view, target);`
 
-<br>
-
 #### TransitionController
 
 功能：防突变动画
@@ -77,8 +73,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 `controller.getTarget();`
 
 `controller.setTarget(target);`
-
-<br>
 
 #### TouchController
 
@@ -113,8 +107,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
         void bottomRefresh();
     }
 
-<br>
-
 #### Salon
 
 简介：图片查看器
@@ -134,8 +126,6 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 简介：RecyclerView.Adapter包装库
 
 接入：插入RecyclerView、Adapter之间，解耦实现首尾项、左滑删除等功能
-
-<br>
 
 #### NotifyManager
 
