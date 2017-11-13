@@ -95,9 +95,17 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 #### Refresh
 
-简介：下拉刷新
+**初始化配置方法**
 
-接入：参考SwipeRefreshLayout设计
+`view.permit(top, bottom);`
+
+设置边缘越界滚动许可，不影响刷新逻辑，但关闭后用户无法通过手势触发刷新。默认头部底部均为开启状态。
+
+`view.auto(advance);`
+
+设置加载更多模式，当advance>=0时为自动加载模式，代表倒数第几项出现在页面内触发加载。默认advance=-1由手势触发加载更多。
+
+**设置加载监听器**
 
     public interface RefreshTopListener {
         void topRefresh();
@@ -106,6 +114,50 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
     public interface RefreshBottomListener {
         void bottomRefresh();
     }
+
+控件提供'下拉刷新'及'加载更多'功能，接入方自主选择'下拉刷新'或'下拉刷新+加载更多'解决方案（或不设置仅为实现边缘效果）。接入'加载更多'可集成RefreshManager负责处理分页列表缓存逻辑，请注意接入'加载更多'时需保证列表数据请求全部由接口发起。
+
+**加载控制类方法**
+
+`view.refresh(isTop);`
+
+触发下拉刷新或加载更多，带有防不必要机制，返回值表示是否刷新成功。一般用于页面首次获取数据。
+
+`view.callback(isTop, status);`
+
+通知下拉刷新或加载更多回调，请注意会话管理防止脏回调。回调类型有NORMAL、END、ERROR，仅接入下拉刷新的场合任选其一即可。
+
+`view.violate(anim);`
+
+强制触发下拉刷新，可选触发加载动画。用于代替refresh方法解决手势以外的刷新需求，例如按钮点击刷新等。
+
+**自定义加载效果**
+
+提供RefreshHintView用于自定义加载效果，组件高度影响手势刷新的触发范围。
+
+    protected abstract int type(); //控件类型
+
+    protected abstract long stay(); //暂留时长
+
+    protected abstract View build(); //初始化控件
+
+    protected abstract void status(int from, int to); //状态变化
+
+    protected abstract void layout(int height); //布局变化
+
+    protected abstract void scroll(float offset); //越界滚动
+
+控件类型分为TOP、BOTTOM、AUTO，类型会影响status方法的触发。
+
+暂留时长影响组件刷新后的悬停时间，设为负数可关闭悬停。
+
+借助status、layout、scroll方法实现加载效果，其中layout方法入参为列表内容可见高度，scroll方法入参为越界滚动偏移量。
+
+**列表容器更替性**
+
+组件借助RefreshCompat类与子容器通讯，该类已内部兼容了RecyclerView及AdapterView，其余容器需自行实现各接口。仅需下拉刷新时一般实现ViewEdge.Event接口即可。
+
+组件基于嵌套滑动实现，对嵌套滑动支持性不好的容器，可使用NestedChildController模拟嵌套滑动。
 
 #### Salon
 
