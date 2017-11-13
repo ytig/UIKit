@@ -161,7 +161,21 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 # 通用组件Salon
 
-敬请期待
+继承SalonMaster实现抽象方法。
+
+    protected abstract View onCreateImage(Context context);
+
+    protected abstract float getRatio(String url);
+
+onCreateImage返回图片控件，需实现SalonImage接口，设计目的为兼容不同的图片库。
+
+getRatio根据链接获取图片宽高比，用于计算共享动画。
+
+`view.display(index, urls);`
+
+`view.display(index, urls, views);`
+
+调用display方法展开组件，传入views会播放共享动画。
 
 ***
 
