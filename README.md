@@ -131,7 +131,7 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 #### 自定义加载效果
 
-提供RefreshHintView用于自定义加载效果，**控件高度**影响手势刷新的**触发范围**。
+提供**RefreshHintView**用于自定义加载效果，**控件高度**影响手势刷新的**触发范围**。
 
     protected abstract int type(); //控件类型
 
@@ -153,9 +153,9 @@ UIKit主要提供了一些**自定义组件辅助类**和**通用组件**。
 
 #### 列表容器更替性
 
-组件借助RefreshCompat类与子容器通讯，该类已内部兼容了RecyclerView及AdapterView，其余容器需**自行实现各接口**。仅需下拉刷新时一般实现ViewEdge.Event接口即可。
+组件借助**RefreshCompat**类与子容器通讯，该类已内部兼容了RecyclerView及AdapterView，其余容器需**自行实现各接口**。仅需下拉刷新时一般实现ViewEdge.Event接口即可。
 
-组件基于嵌套滑动实现，对嵌套滑动支持性不好的容器，可使用NestedChildController**模拟嵌套滑动**。
+组件基于嵌套滑动实现，对嵌套滑动支持性不好的容器，可使用**NestedChildController**来**模拟嵌套滑动**。
 
 ***
 
