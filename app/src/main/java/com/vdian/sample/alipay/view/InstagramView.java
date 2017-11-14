@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.AnimationUtils;
 
-import com.vdian.uikit.view.extend.refresh.RefreshHintView;
+import com.vdian.refresh.RefreshHintView;
 
 /**
  * Created by zhangliang on 16/12/28.

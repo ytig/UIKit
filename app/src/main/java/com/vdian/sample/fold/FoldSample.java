@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.vdian.refresh.RefreshView;
 import com.vdian.sample.BaseSample;
 import com.vdian.sample.fold.view.FoldView;
 import com.vdian.sample.fold.view.FrameView;
 import com.vdian.sample.fold.view.RootView;
-import com.vdian.uikit.view.extend.refresh.RefreshView;
 
 /**
  * Created by zhangliang on 17/7/7.

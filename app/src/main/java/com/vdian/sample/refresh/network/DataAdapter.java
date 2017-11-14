@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.widget.RecyclerView;
 
-import com.vdian.uikit.view.extend.refresh.RefreshView;
+import com.vdian.refresh.RefreshView;
 import com.vdian.uikit.view.NotifyManager;
 
 import java.util.ArrayList;

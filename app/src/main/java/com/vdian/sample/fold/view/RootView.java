@@ -6,8 +6,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 
-import com.vdian.uikit.view.extend.refresh.RefreshCompat;
-import com.vdian.uikit.view.extend.refresh.RefreshView;
+import com.vdian.refresh.RefreshCompat;
+import com.vdian.refresh.RefreshView;
 import com.vdian.uikit.view.TouchController;
 
 /**

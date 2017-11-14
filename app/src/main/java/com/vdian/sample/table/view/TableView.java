@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.vdian.uikit.util.RectUtil;
 import com.vdian.uikit.view.ViewGroupMonitor;
-import com.vdian.uikit.wrapper.Wrapper;
+import com.vdian.wrapper.Wrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;

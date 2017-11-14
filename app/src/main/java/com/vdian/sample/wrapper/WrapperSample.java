@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.vdian.sample.BaseSample;
 import com.vdian.sample.wrapper.wrapper.DivSwipeWrapper;
 import com.vdian.sample.wrapper.wrapper.DividerWrapper;
-import com.vdian.uikit.wrapper.recycler.AppendWrapper;
+import com.vdian.wrapper.recycler.AppendWrapper;
 
 /**
  * Created by zhangliang on 16/11/3.

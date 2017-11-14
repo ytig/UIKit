@@ -10,8 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vdian.uikit.wrapper.WrapperFinder;
-import com.vdian.uikit.wrapper.recycler.SwipeWrapper;
+import com.vdian.wrapper.WrapperFinder;
+import com.vdian.wrapper.recycler.SwipeWrapper;
 
 /**
  * Created by zhangliang on 16/11/3.

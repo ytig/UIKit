@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vdian.refresh.RefreshView;
 import com.vdian.sample.BaseSample;
 import com.vdian.sample.alipay.view.TitleView;
-import com.vdian.uikit.view.extend.refresh.RefreshView;
 
 /**
  * Created by zhangliang on 16/10/24.

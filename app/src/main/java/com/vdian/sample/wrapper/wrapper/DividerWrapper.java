@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.vdian.uikit.wrapper.recycler.ReplaceWrapper;
+import com.vdian.wrapper.recycler.ReplaceWrapper;
 
 /**
  * Created by zhangliang on 16/11/3.

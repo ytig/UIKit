@@ -10,10 +10,10 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.vdian.uikit.view.extend.refresh.RefreshHintView;
-import com.vdian.uikit.view.extend.refresh.RefreshView;
+import com.vdian.refresh.RefreshHintView;
+import com.vdian.refresh.RefreshView;
 import com.vdian.uikit.view.ViewGroupMonitor;
-import com.vdian.uikit.wrapper.recycler.AppendWrapper;
+import com.vdian.wrapper.recycler.AppendWrapper;
 
 import java.util.Collections;
 import java.util.List;

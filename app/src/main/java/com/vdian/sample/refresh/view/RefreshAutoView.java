@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.vdian.uikit.view.extend.refresh.RefreshHintView;
+import com.vdian.refresh.RefreshHintView;
 
 /**
  * Created by zhangliang on 16/10/19.

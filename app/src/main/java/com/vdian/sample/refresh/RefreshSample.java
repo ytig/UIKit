@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.vdian.refresh.RefreshView;
 import com.vdian.sample.BaseSample;
 import com.vdian.sample.refresh.network.DataAdapter;
 import com.vdian.sample.refresh.view.RefreshAutoView;
 import com.vdian.sample.refresh.view.RefreshBottomView;
 import com.vdian.sample.refresh.view.RefreshTopView;
-import com.vdian.uikit.view.extend.refresh.RefreshView;
-import com.vdian.uikit.wrapper.recycler.AppendWrapper;
+import com.vdian.wrapper.recycler.AppendWrapper;
 
 /**
  * Created by zhangliang on 16/10/19.

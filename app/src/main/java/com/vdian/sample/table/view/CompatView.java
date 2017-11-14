@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
-import com.vdian.uikit.view.extend.refresh.RefreshView;
+import com.vdian.refresh.RefreshView;
 
 import java.util.LinkedList;
 import java.util.Queue;

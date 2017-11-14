@@ -22,7 +22,7 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.vdian.uikit.view.extend.salon.SalonMaster;
+import com.vdian.salon.SalonMaster;
 
 import java.util.ArrayList;
 import java.util.HashMap;
