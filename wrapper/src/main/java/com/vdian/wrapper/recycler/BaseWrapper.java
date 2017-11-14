@@ -2,7 +2,7 @@ package com.vdian.wrapper.recycler;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.vdian.uikit.wrapper.Wrapper;
+import com.vdian.wrapper.Wrapper;
 
 /**
  * Created by zhangliang on 16/11/1.
