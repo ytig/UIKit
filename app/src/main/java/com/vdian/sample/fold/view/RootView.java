@@ -8,7 +8,7 @@ import android.view.ViewParent;
 
 import com.vdian.uikit.view.extend.refresh.RefreshCompat;
 import com.vdian.uikit.view.extend.refresh.RefreshView;
-import com.vdian.uikit.view.helper.TouchController;
+import com.vdian.uikit.view.TouchController;
 
 /**
  * Created by zhangliang on 17/7/7.

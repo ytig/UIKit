@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.vdian.uikit.view.helper.TouchController;
-import com.vdian.uikit.view.helper.TransitionController;
-import com.vdian.uikit.view.helper.ViewMonitor;
+import com.vdian.uikit.view.TouchController;
+import com.vdian.uikit.view.TransitionController;
+import com.vdian.uikit.view.ViewMonitor;
 
 /**
  * Created by zhangliang on 16/11/2.

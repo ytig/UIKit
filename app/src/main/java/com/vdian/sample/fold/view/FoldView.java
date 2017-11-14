@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
-import com.vdian.uikit.view.helper.TransitionController;
+import com.vdian.uikit.view.TransitionController;
 
 /**
  * Created by zhangliang on 17/7/7.

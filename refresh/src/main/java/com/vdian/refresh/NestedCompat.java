@@ -5,7 +5,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
 
-import com.vdian.uikit.view.helper.TouchController;
+import com.vdian.uikit.view.TouchController;
 
 /**
  * Created by zhangliang on 16/12/15.

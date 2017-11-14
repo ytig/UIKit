@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.vdian.uikit.view.helper.ViewGroupMonitor;
+import com.vdian.uikit.view.ViewGroupMonitor;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

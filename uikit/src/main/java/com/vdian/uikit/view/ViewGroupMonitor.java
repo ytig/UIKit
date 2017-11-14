@@ -1,4 +1,4 @@
-package com.vdian.uikit.view.helper;
+package com.vdian.uikit.view;
 
 import android.graphics.Rect;
 import android.support.v4.view.ViewCompat;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 
-import com.vdian.uikit.util.rect.RectUtil;
+import com.vdian.uikit.util.RectUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

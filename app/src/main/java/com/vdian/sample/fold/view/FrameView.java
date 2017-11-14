@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vdian.uikit.view.extend.refresh.RefreshHintView;
-import com.vdian.uikit.view.helper.TransitionController;
+import com.vdian.uikit.view.TransitionController;
 
 /**
  * Created by zhangliang on 17/7/24.

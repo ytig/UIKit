@@ -1,4 +1,4 @@
-package com.vdian.uikit.util.alive;
+package com.vdian.uikit.util;
 
 import android.app.Activity;
 import android.app.Fragment;

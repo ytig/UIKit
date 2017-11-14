@@ -14,9 +14,9 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnimationUtils;
 
-import com.vdian.uikit.util.rect.RectUtil;
-import com.vdian.uikit.view.helper.AnimatorManager;
-import com.vdian.uikit.view.helper.TouchController;
+import com.vdian.uikit.util.RectUtil;
+import com.vdian.uikit.view.AnimatorManager;
+import com.vdian.uikit.view.TouchController;
 
 import java.util.ArrayList;
 import java.util.HashMap;

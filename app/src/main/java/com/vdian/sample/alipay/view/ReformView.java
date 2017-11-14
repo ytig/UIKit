@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 
-import com.vdian.uikit.util.rect.RectUtil;
-import com.vdian.uikit.view.helper.ViewGroupMonitor;
+import com.vdian.uikit.util.RectUtil;
+import com.vdian.uikit.view.ViewGroupMonitor;
 
 import java.util.ArrayList;
 import java.util.List;

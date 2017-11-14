@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AnimationUtils;
 
-import com.vdian.uikit.view.helper.TransitionController;
+import com.vdian.uikit.view.TransitionController;
 
 import java.lang.ref.WeakReference;
 

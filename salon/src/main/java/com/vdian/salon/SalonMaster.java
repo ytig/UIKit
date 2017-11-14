@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.vdian.uikit.util.rect.RectUtil;
-import com.vdian.uikit.view.helper.TransitionController;
+import com.vdian.uikit.util.RectUtil;
+import com.vdian.uikit.view.TransitionController;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.vdian.uikit.util.tag;
+package com.vdian.uikit.util;
 
 import android.app.Activity;
 import android.app.Dialog;

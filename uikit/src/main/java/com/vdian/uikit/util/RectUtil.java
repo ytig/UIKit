@@ -1,4 +1,4 @@
-package com.vdian.uikit.util.rect;
+package com.vdian.uikit.util;
 
 import android.graphics.Rect;
 import android.view.View;

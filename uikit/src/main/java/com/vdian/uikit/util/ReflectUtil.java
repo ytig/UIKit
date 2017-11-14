@@ -1,4 +1,4 @@
-package com.vdian.uikit.util.reflect;
+package com.vdian.uikit.util;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

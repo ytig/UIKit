@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.vdian.uikit.view.extend.refresh.RefreshHintView;
 import com.vdian.uikit.view.extend.refresh.RefreshView;
-import com.vdian.uikit.view.helper.ViewGroupMonitor;
+import com.vdian.uikit.view.ViewGroupMonitor;
 import com.vdian.uikit.wrapper.recycler.AppendWrapper;
 
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.vdian.uikit.view.helper;
+package com.vdian.uikit.view;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;

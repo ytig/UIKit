@@ -15,7 +15,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.RelativeLayout;
 
-import com.vdian.uikit.view.helper.TransitionController;
+import com.vdian.uikit.view.TransitionController;
 
 import java.util.ArrayList;
 import java.util.List;
