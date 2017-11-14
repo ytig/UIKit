@@ -1,1 +1,1 @@
-include ':app', ':uikit', ':refresh'
+include ':app', ':uikit', ':refresh', ':salon'
