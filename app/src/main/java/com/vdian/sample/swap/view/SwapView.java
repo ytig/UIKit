@@ -53,6 +53,7 @@ public class SwapView extends UnRecyclerView implements TouchController.TouchLis
     }
 
     private void init() {
+        RectUtil.vary();
         mTmp = new Rect();
         mManager = new SwapManager();
         mHelper = new ScrollHelper();
@@ -144,10 +145,10 @@ public class SwapView extends UnRecyclerView implements TouchController.TouchLis
                 float value = (scale - 1) / 0.25f;
                 if (value > 0) {
                     int top, bottom;
-                    RectUtil.measure(child, mTmp, true);
+                    RectUtil.measure(child, mTmp);
                     top = mTmp.top;
                     bottom = mTmp.bottom;
-                    RectUtil.measure(this, mTmp, true);
+                    RectUtil.measure(this, mTmp);
                     top -= mTmp.top;
                     bottom -= mTmp.top;
                     top = (int) (top + getScrollY() + child.getPaddingTop() * child.getScaleY());

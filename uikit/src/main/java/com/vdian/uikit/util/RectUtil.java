@@ -11,25 +11,22 @@ import java.util.Queue;
  * Created by zhangliang on 16/9/19.
  */
 public class RectUtil {
+    private static boolean vary = false;
     private static int[] location = new int[2];
     private static Queue<Rect> cache = new LinkedList<>();
 
+    public static void vary() {
+        vary = true;
+    }
+
     public static Rect measure(View view) {
-        return measure(view, new Rect(), false);
+        return measure(view, new Rect());
     }
 
     public static Rect measure(View view, Rect rect) {
-        return measure(view, rect, false);
-    }
-
-    public static Rect measure(View view, boolean traverse) {
-        return measure(view, new Rect(), traverse);
-    }
-
-    public static Rect measure(View view, Rect rect, boolean traverse) {
         view.getLocationOnScreen(location);
         float width = view.getWidth(), height = view.getHeight();
-        if (traverse) {
+        if (vary) {
             do {
                 width *= view.getScaleX();
                 height *= view.getScaleY();
