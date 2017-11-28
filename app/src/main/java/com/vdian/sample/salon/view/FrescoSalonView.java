@@ -128,14 +128,14 @@ public class FrescoSalonView extends SalonMaster {
     }
 
     private static class FrescoImageView extends SimpleDraweeView implements SalonImage {
-        private float mRatio = RATIO_LOAD;
-        private ControllerListener listener;
+        private float mRatio;
+        private ControllerListener mListener;
 
         public FrescoImageView(Context context) {
             super(context);
             getHierarchy().setFadeDuration(0);
             getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
-            listener = new BaseControllerListener<ImageInfo>() {
+            mListener = new BaseControllerListener<ImageInfo>() {
                 @Override
                 public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                     if (imageInfo != null)
@@ -152,9 +152,9 @@ public class FrescoSalonView extends SalonMaster {
 
         @Override
         public void loadUrl(String url) {
-            mRatio = RATIO_LOAD;
             if (url == null || url.equals("")) setImageURI("");
             else {
+                mRatio = RATIO_LOAD;
                 String low = rule.toLowUrl(url);
                 if (low == null) low = "";
                 String high = rule.toHighUrl(url);
@@ -174,7 +174,7 @@ public class FrescoSalonView extends SalonMaster {
                             }
                         }
                     }
-                }).setResizeOptions(new ResizeOptions(800, 800)).build()).setControllerListener(listener).build());
+                }).setResizeOptions(new ResizeOptions(800, 800)).build()).setControllerListener(mListener).build());
             }
         }
 
