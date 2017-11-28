@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,8 @@ public abstract class SalonMaster extends SalonView {
 
     public SalonMaster(ViewGroup root) {
         super(root.getContext());
+        setFocusable(true);
+        setFocusableInTouchMode(true);
         setWillNotDraw(false);
         permitTouchEvent(false); //禁止触控
         setVisibility(View.INVISIBLE); //隐藏控件
@@ -92,6 +95,18 @@ public abstract class SalonMaster extends SalonView {
                 requestLayout();
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        boolean consume = false;
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if (isShow) consume = true;
+                if (permitTouchEvent() && mOffset == 0) animation(false); //关闭动画
+                break;
+        }
+        return consume || super.onKeyDown(keyCode, event);
     }
 
     @Override
