@@ -141,6 +141,12 @@ public class FrescoSalonView extends SalonMaster {
                     if (imageInfo != null)
                         mRatio = ((float) imageInfo.getWidth()) / imageInfo.getHeight();
                 }
+
+                @Override
+                public void onFailure(String id, Throwable throwable) {
+                    super.onFailure(id, throwable);
+                    mRatio = RATIO_FAIL;
+                }
             };
         }
 
@@ -157,7 +163,7 @@ public class FrescoSalonView extends SalonMaster {
                     low = "";
                 }
                 final long delay = SleepUtil.sleep(high);
-                setController(Fresco.newDraweeControllerBuilder().setLowResImageRequest(ImageRequest.fromUri(Uri.parse(low))).setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.parse(high)).setPostprocessor(new BasePostprocessor() {
+                setController(Fresco.newDraweeControllerBuilder().setLowResImageRequest(ImageRequest.fromUri(Uri.parse(low))).setRetainImageOnFailure(true).setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.parse(high)).setPostprocessor(new BasePostprocessor() {
                     @Override
                     public void process(Bitmap bitmap) {
                         super.process(bitmap);
