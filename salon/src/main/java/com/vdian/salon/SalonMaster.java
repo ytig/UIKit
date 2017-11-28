@@ -104,8 +104,16 @@ public abstract class SalonMaster extends SalonView {
         boolean consume = false;
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                if (isShow) consume = true;
-                if (!isTouch() && permitTouchEvent() && mOffset == 0) animation(false); //关闭动画
+                if (mPopup.isShow) {
+                    consume = true;
+                    if (!isTouch()) mPopup.onClick(mPopup);
+                    break;
+                }
+                if (isShow) {
+                    consume = true;
+                    if (!isTouch() && permitTouchEvent() && mOffset == 0) animation(false); //关闭动画
+                    break;
+                }
                 break;
         }
         return consume || super.onKeyDown(keyCode, event);
