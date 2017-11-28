@@ -9,6 +9,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.v4.view.ViewCompat;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -89,6 +90,7 @@ public abstract class SalonMaster extends SalonView {
             }
             super.display(index, urls);
             animation(true); //开启动画
+            requestFocus(); //获取焦点
             ViewParent parent = getParent();
             if (parent != null) {
                 parent.bringChildToFront(this); //置顶控件
@@ -426,13 +428,16 @@ public abstract class SalonMaster extends SalonView {
      * @return
      */
     protected Rect getRect(View view) {
-        RectUtil.measure(view, yRect);
-        RectUtil.measure(this, mRect);
-        yRect.left -= mRect.left;
-        yRect.right -= mRect.left;
-        yRect.top -= mRect.top;
-        yRect.bottom -= mRect.top;
-        return yRect;
+        if (ViewCompat.isAttachedToWindow(view)) {
+            RectUtil.measure(view, yRect);
+            RectUtil.measure(this, mRect);
+            yRect.left -= mRect.left;
+            yRect.right -= mRect.left;
+            yRect.top -= mRect.top;
+            yRect.bottom -= mRect.top;
+            return yRect;
+        }
+        return null;
     }
 
     public interface SalonDecoration {
