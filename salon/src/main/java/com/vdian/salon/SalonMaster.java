@@ -103,7 +103,7 @@ public abstract class SalonMaster extends SalonView {
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if (isShow) consume = true;
-                if (permitTouchEvent() && mOffset == 0) animation(false); //关闭动画
+                if (!isTouch() && permitTouchEvent() && mOffset == 0) animation(false); //关闭动画
                 break;
         }
         return consume || super.onKeyDown(keyCode, event);

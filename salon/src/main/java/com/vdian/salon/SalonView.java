@@ -153,6 +153,10 @@ public abstract class SalonView extends RelativeLayout {
         return mDelegate.onInterceptTouchEvent(event);
     }
 
+    protected boolean isTouch() {
+        return mDelegate.isTouch();
+    }
+
     protected boolean permitTouchEvent() {
         return mDelegate.permitTouchEvent();
     }
@@ -637,6 +641,10 @@ public abstract class SalonView extends RelativeLayout {
         public boolean onInterceptTouchEvent(MotionEvent event) {
             boolean b = SalonView.super.onInterceptTouchEvent(event);
             return b || doIntercept;
+        }
+
+        public boolean isTouch() {
+            return touchPointId.size() != 0;
         }
 
         public boolean permitTouchEvent() {
