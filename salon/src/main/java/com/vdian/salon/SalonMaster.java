@@ -84,19 +84,12 @@ public abstract class SalonMaster extends SalonView {
      */
     public void display(int index, List<String> urls, List<View> views) {
         if (didLayout && !isShow) {
-            isShow = true;
             mViews.clear();
             if (views != null) {
                 for (View view : views) mViews.add(new WeakReference<>(view));
             }
             super.display(index, urls);
             animation(true); //开启动画
-            requestFocus(); //获取焦点
-            ViewParent parent = getParent();
-            if (parent != null) {
-                parent.bringChildToFront(this); //置顶控件
-                requestLayout();
-            }
         }
     }
 
@@ -216,14 +209,14 @@ public abstract class SalonMaster extends SalonView {
 
                     @Override
                     protected void onStart() {
-                        setVisibility(View.VISIBLE);
+                        onDisplayStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onEnd() {
                         super.onEnd();
-                        permitTouchEvent(true); //开启动画结束允许触控
+                        onDisplayEnd();
                     }
                 }.start();
             } else { //渐变关闭动画
@@ -255,24 +248,14 @@ public abstract class SalonMaster extends SalonView {
 
                     @Override
                     protected void onStart() {
-                        permitTouchEvent(false); //关闭动画开始禁止触控
+                        onDismissStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onEnd() {
                         super.onEnd();
-                        isShow = false;
-                        setVisibility(View.INVISIBLE);
-                        for (int d = 0; d <= CHILD_SIZE / 2; d++) { //释放内存
-                            int l = (CHILD_SIZE + mChildIndex - d) % CHILD_SIZE;
-                            if (mUrlIndex - d >= 0 && mUrlIndex - d < mUrls.size())
-                                ((SalonExhibit) mExhibits[l]).loadUrl(null);
-                            if (d == 0) continue;
-                            int r = (CHILD_SIZE + mChildIndex + d) % CHILD_SIZE;
-                            if (mUrlIndex + d >= 0 && mUrlIndex + d < mUrls.size())
-                                ((SalonExhibit) mExhibits[r]).loadUrl(null);
-                        }
+                        onDismissEnd();
                     }
                 }.start();
             }
@@ -332,14 +315,14 @@ public abstract class SalonMaster extends SalonView {
 
                     @Override
                     protected void onStart() {
-                        setVisibility(View.VISIBLE);
+                        onDisplayStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onEnd() {
                         super.onEnd();
-                        permitTouchEvent(true); //开启动画结束允许触控
+                        onDisplayEnd();
                     }
                 }.start();
             } else { //共享关闭动画
@@ -390,27 +373,50 @@ public abstract class SalonMaster extends SalonView {
 
                     @Override
                     protected void onStart() {
-                        permitTouchEvent(false); //关闭动画开始禁止触控
+                        onDismissStart();
                         super.onStart();
                     }
 
                     @Override
                     protected void onEnd() {
                         super.onEnd();
-                        isShow = false;
-                        setVisibility(View.INVISIBLE);
-                        for (int d = 0; d <= CHILD_SIZE / 2; d++) { //释放内存
-                            int l = (CHILD_SIZE + mChildIndex - d) % CHILD_SIZE;
-                            if (mUrlIndex - d >= 0 && mUrlIndex - d < mUrls.size())
-                                ((SalonExhibit) mExhibits[l]).loadUrl(null);
-                            if (d == 0) continue;
-                            int r = (CHILD_SIZE + mChildIndex + d) % CHILD_SIZE;
-                            if (mUrlIndex + d >= 0 && mUrlIndex + d < mUrls.size())
-                                ((SalonExhibit) mExhibits[r]).loadUrl(null);
-                        }
+                        onDismissEnd();
                     }
                 }.start();
             }
+        }
+    }
+
+    protected void onDisplayStart() {
+        isShow = true;
+        setVisibility(View.VISIBLE);
+        requestFocus(); //获取焦点
+        ViewParent parent = getParent();
+        if (parent != null) {
+            parent.bringChildToFront(this); //置顶控件
+            requestLayout();
+        }
+    }
+
+    protected void onDisplayEnd() {
+        permitTouchEvent(true); //开启动画结束允许触控
+    }
+
+    protected void onDismissStart() {
+        permitTouchEvent(false); //关闭动画开始禁止触控
+    }
+
+    protected void onDismissEnd() {
+        isShow = false;
+        setVisibility(View.INVISIBLE);
+        for (int d = 0; d <= CHILD_SIZE / 2; d++) { //释放内存
+            int l = (CHILD_SIZE + mChildIndex - d) % CHILD_SIZE;
+            if (mUrlIndex - d >= 0 && mUrlIndex - d < mUrls.size())
+                ((SalonExhibit) mExhibits[l]).loadUrl(null);
+            if (d == 0) continue;
+            int r = (CHILD_SIZE + mChildIndex + d) % CHILD_SIZE;
+            if (mUrlIndex + d >= 0 && mUrlIndex + d < mUrls.size())
+                ((SalonExhibit) mExhibits[r]).loadUrl(null);
         }
     }
 
