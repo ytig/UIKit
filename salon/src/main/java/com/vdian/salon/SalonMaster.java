@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v4.view.ViewCompat;
@@ -464,6 +465,7 @@ public abstract class SalonMaster extends SalonView {
     private static class SalonFrame extends RelativeLayout implements SalonExhibit {
         private View mImage; //图片控件
         private LoadView mLoad; //加载环控件
+        private FailView mFail; //加载失败控件
         private Matrix mMatrix = new Matrix(); //绘制矩阵
 
         public SalonFrame(Context context, View image) {
@@ -475,13 +477,21 @@ public abstract class SalonMaster extends SalonView {
             mLoad = new LoadView(context);
             mLoad.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             addView(mLoad);
+            mFail = new FailView(context);
+            mFail.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+            addView(mFail);
         }
 
         @Override
         public void loadUrl(String url) {
             ((SalonImage) mImage).loadUrl(url);
-            if (url == null || url.equals("")) mLoad.display(false);
-            else mLoad.display(true);
+            if (url == null || url.equals("")) {
+                mLoad.display(false);
+                mFail.display(false);
+            } else {
+                mLoad.display(true);
+                mFail.display(true);
+            }
         }
 
         @Override
@@ -517,14 +527,12 @@ public abstract class SalonMaster extends SalonView {
 
             public LoadView(Context context) {
                 super(context);
-                sPaint = new Paint();
+                sPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 sPaint.setColor(Color.rgb(255, 255, 255));
-                sPaint.setAntiAlias(true);
                 sPaint.setStyle(Paint.Style.STROKE);
                 sPaint.setStrokeWidth(STROKE_WIDTH * getContext().getResources().getDisplayMetrics().density);
-                lPaint = new Paint();
+                lPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 lPaint.setColor(Color.rgb(0, 0, 0));
-                lPaint.setAntiAlias(true);
                 lPaint.setStyle(Paint.Style.STROKE);
                 lPaint.setStrokeWidth(STROKE_WIDTH * getContext().getResources().getDisplayMetrics().density);
                 mRectF = new RectF();
@@ -593,6 +601,85 @@ public abstract class SalonMaster extends SalonView {
                 invalidate();
             }
         }
+
+        private class FailView extends View implements SalonDecoration, TransitionController.TransitionListener {
+            private static final float STROKE_WIDTH = 1.5f; //圆环边宽
+            private static final float CIRCLE_RADIUS = 14; //圆环半径
+
+            private Paint sPaint; //深色画笔
+            private Paint lPaint; //浅色画笔
+            private TransitionController mAnimation; //动画控制器
+
+            public FailView(Context context) {
+                super(context);
+                sPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                sPaint.setColor(Color.rgb(255, 255, 255));
+                sPaint.setStyle(Paint.Style.STROKE);
+                sPaint.setStrokeWidth(STROKE_WIDTH * getContext().getResources().getDisplayMetrics().density);
+                sPaint.setTypeface(Typeface.SERIF);
+                sPaint.setTextAlign(Paint.Align.CENTER);
+                sPaint.setTextSize(CIRCLE_RADIUS * getContext().getResources().getDisplayMetrics().density);
+                lPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                lPaint.setColor(Color.argb(158, 0, 0, 0));
+                lPaint.setStyle(Paint.Style.STROKE);
+                lPaint.setStrokeWidth(STROKE_WIDTH * getContext().getResources().getDisplayMetrics().density);
+                lPaint.setTypeface(Typeface.SERIF);
+                lPaint.setTextAlign(Paint.Align.CENTER);
+                lPaint.setTextSize(CIRCLE_RADIUS * getContext().getResources().getDisplayMetrics().density);
+                mAnimation = new TransitionController(this, this);
+            }
+
+            public void display(boolean show) {
+                if (!show) mAnimation.setValue(0);
+                else {
+                    mAnimation.setValue(0);
+                    mAnimation.setTarget(1);
+                }
+            }
+
+            @Override
+            public void computeScroll() {
+                super.computeScroll();
+                mAnimation.computeScroll();
+            }
+
+            @Override
+            protected void onDraw(Canvas canvas) {
+                super.onDraw(canvas);
+                if (getRatio() == SalonImage.RATIO_FAIL) {
+                    float value = mAnimation.getValue();
+                    if (value > 0.309f) {
+                        canvas.translate(getWidth() / 2, getHeight() / 2);
+                        float radius = CIRCLE_RADIUS * getContext().getResources().getDisplayMetrics().density;
+                        float lvalue = Math.max(0, Math.min(1, (value - 0.809f) / 0.191f));
+                        if (lvalue != 0) {
+                            lvalue *= (STROKE_WIDTH * getContext().getResources().getDisplayMetrics().density / 0.618f);
+                            canvas.save(Canvas.MATRIX_SAVE_FLAG);
+                            canvas.translate(0.618f * lvalue, lvalue);
+                            canvas.drawCircle(0, 0, radius, lPaint);
+                            canvas.drawText("!", 0, -(lPaint.getFontMetrics().top + lPaint.getFontMetrics().bottom) / 2, lPaint);
+                            canvas.restore();
+                        }
+                        float svalue = Math.max(0, Math.min(1, (value - 0.309f) / 0.5f));
+                        sPaint.setAlpha((int) (255 * svalue));
+                        canvas.scale((svalue + 0.618f * (1 - svalue)), (svalue + 0.618f * (1 - svalue)));
+                        canvas.drawCircle(0, 0, radius, sPaint);
+                        canvas.drawText("!", 0, -(sPaint.getFontMetrics().top + sPaint.getFontMetrics().bottom) / 2, sPaint);
+                    }
+                }
+            }
+
+            @Override
+            public float speed(float value, float target) {
+                if (getRatio() == SalonImage.RATIO_LOAD) return 0;
+                return 1 / 360f;
+            }
+
+            @Override
+            public void display(View self, float value) {
+                invalidate();
+            }
+        }
     }
 
     private static class SalonIndicator extends View implements SalonDecoration {
@@ -607,12 +694,10 @@ public abstract class SalonMaster extends SalonView {
 
         public SalonIndicator(Context context) {
             super(context);
-            sPaint = new Paint();
+            sPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             sPaint.setColor(Color.rgb(255, 255, 255));
-            sPaint.setAntiAlias(true);
-            lPaint = new Paint();
+            lPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             lPaint.setColor(Color.argb(100, 255, 255, 255));
-            lPaint.setAntiAlias(true);
         }
 
         public void display(float index, int size) {
