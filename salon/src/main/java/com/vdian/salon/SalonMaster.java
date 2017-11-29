@@ -685,10 +685,12 @@ public abstract class SalonMaster extends SalonView {
     private static class SalonIndicator extends View implements SalonDecoration {
         private static final float CIRCLE_RADIUS = 2.8f; //圆点半径
         private static final float CIRCLE_MARGIN = 14; //圆点间距
-        private static final float CIRCLE_BOTTOM = 36; //圆点底部边距
+        private static final float STROKE_WIDTH = 1f; //线条粗细
+        private static final float BORDER_PADDING = 36; //边界留白
 
-        private int mIndex = 0; //当前页号
         private int mSize = 0; //页号总量
+        private int mIndex = -1; //当前页号
+        private float mProgress = -1; //页号进度
         private Paint sPaint; //深色画笔
         private Paint lPaint; //浅色画笔
 
@@ -701,16 +703,18 @@ public abstract class SalonMaster extends SalonView {
         }
 
         public void display(float index, int size) {
-            if (size > 0) {
-                index = (int) (index + 0.5f);
-                if (index < 0) index = 0;
-                if (index > size - 1) index = size - 1;
-            }
-            if (mIndex != (int) index || mSize != size) {
-                mIndex = (int) index;
-                mSize = size;
-                invalidate();
-            }
+            int oSize = mSize;
+            int oIndex = mIndex;
+            float oProgress = mProgress;
+            mSize = size;
+            mIndex = size > 0 ? Math.max(0, Math.min(size - 1, (int) (index + 0.5f))) : -1;
+            mProgress = size > 1 ? Math.max(0, Math.min(1, index / (size - 1))) : -1;
+            if (mSize != oSize || mIndex != oIndex) invalidate();
+            else if (overflow() && mProgress != oProgress) invalidate();
+        }
+
+        private boolean overflow() {
+            return ((mSize - 1) * CIRCLE_MARGIN + CIRCLE_RADIUS) * getContext().getResources().getDisplayMetrics().density > 0.618f * getContext().getResources().getDisplayMetrics().widthPixels;
         }
 
         @Override
@@ -718,10 +722,19 @@ public abstract class SalonMaster extends SalonView {
             super.onDraw(canvas);
             if (mSize > 1) {
                 float density = getContext().getResources().getDisplayMetrics().density;
-                for (int i = 0; i < mSize; i++) {
-                    float cx = getWidth() / 2 - (mSize - 1) * CIRCLE_MARGIN * density / 2 + i * CIRCLE_MARGIN * density;
-                    float cy = getHeight() - (CIRCLE_RADIUS + CIRCLE_BOTTOM) * density;
-                    canvas.drawCircle(cx, cy, CIRCLE_RADIUS * density, (i == mIndex) ? sPaint : lPaint);
+                if (!overflow()) {
+                    for (int i = 0; i < mSize; i++) {
+                        float cx = getWidth() / 2 - (mSize - 1) * CIRCLE_MARGIN * density / 2 + i * CIRCLE_MARGIN * density;
+                        float cy = getHeight() - BORDER_PADDING * density;
+                        canvas.drawCircle(cx, cy, CIRCLE_RADIUS * density, (i == mIndex) ? sPaint : lPaint);
+                    }
+                } else {
+                    float w = getWidth() - BORDER_PADDING * density;
+                    float h = STROKE_WIDTH * density;
+                    float l = getWidth() / 2 - w / 2;
+                    float t = getHeight() - BORDER_PADDING * density - h / 2;
+                    canvas.drawRect(l, t, l + w, t + h, lPaint);
+                    canvas.drawCircle(l + w * mProgress, t + h / 2, CIRCLE_RADIUS * density, sPaint);
                 }
             }
         }
