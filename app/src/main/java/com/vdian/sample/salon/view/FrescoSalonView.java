@@ -22,6 +22,7 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.facebook.imagepipeline.request.Postprocessor;
 import com.vdian.salon.SalonMaster;
 
 import java.util.ArrayList;
@@ -129,52 +130,79 @@ public class FrescoSalonView extends SalonMaster {
 
     private static class FrescoImageView extends SimpleDraweeView implements SalonImage {
         private float mRatio;
-        private ControllerListener mListener;
 
         public FrescoImageView(Context context) {
             super(context);
             getHierarchy().setFadeDuration(0);
             getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
-            mListener = new BaseControllerListener<ImageInfo>() {
-                @Override
-                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                    if (imageInfo != null)
-                        mRatio = ((float) imageInfo.getWidth()) / imageInfo.getHeight();
-                }
-
-                @Override
-                public void onFailure(String id, Throwable throwable) {
-                    super.onFailure(id, throwable);
-                    mRatio = RATIO_FAIL;
-                }
-            };
         }
 
         @Override
         public void loadUrl(String url) {
             if (url == null || url.equals("")) setImageURI("");
             else {
-                mRatio = RATIO_LOAD;
                 String low = rule.toLowUrl(url);
                 if (low == null) low = "";
                 String high = rule.toHighUrl(url);
-                if (high == null || high.equals("")) {
+                if (high == null) high = "";
+                Postprocessor p;
+                ControllerListener<? super ImageInfo> cl;
+                if ("".equals(high)) {
+                    if ("".equals(low)) {
+                        loadUrl(null);
+                        return;
+                    }
                     high = low;
-                    low = "";
-                }
-                final long delay = SleepUtil.sleep(high);
-                setController(Fresco.newDraweeControllerBuilder().setLowResImageRequest(ImageRequest.fromUri(Uri.parse(low))).setRetainImageOnFailure(true).setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.parse(high)).setPostprocessor(new BasePostprocessor() {
-                    @Override
-                    public void process(Bitmap bitmap) {
-                        super.process(bitmap);
-                        if (delay > 0) {
-                            try {
-                                Thread.sleep(delay);
-                            } catch (Exception e) {
+                    final long delay = 3090L;
+                    p = new BasePostprocessor() {
+                        @Override
+                        public void process(Bitmap bitmap) {
+                            super.process(bitmap);
+                            if (delay > 0) {
+                                try {
+                                    Thread.sleep(delay);
+                                } catch (Exception e) {
+                                }
                             }
                         }
-                    }
-                }).setResizeOptions(new ResizeOptions(800, 800)).build()).setControllerListener(mListener).build());
+                    };
+                    cl = new BaseControllerListener<ImageInfo>() {
+                        @Override
+                        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                            super.onFinalImageSet(id, imageInfo, animatable);
+                            mRatio = RATIO_FAIL;
+                        }
+                    };
+                } else {
+                    final long delay = SleepUtil.sleep(high);
+                    p = new BasePostprocessor() {
+                        @Override
+                        public void process(Bitmap bitmap) {
+                            super.process(bitmap);
+                            if (delay > 0) {
+                                try {
+                                    Thread.sleep(delay);
+                                } catch (Exception e) {
+                                }
+                            }
+                        }
+                    };
+                    cl = new BaseControllerListener<ImageInfo>() {
+                        @Override
+                        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                            if (imageInfo != null)
+                                mRatio = ((float) imageInfo.getWidth()) / imageInfo.getHeight();
+                        }
+
+                        @Override
+                        public void onFailure(String id, Throwable throwable) {
+                            super.onFailure(id, throwable);
+                            mRatio = RATIO_FAIL;
+                        }
+                    };
+                }
+                mRatio = RATIO_LOAD;
+                setController(Fresco.newDraweeControllerBuilder().setLowResImageRequest(ImageRequest.fromUri(Uri.parse(low))).setRetainImageOnFailure(true).setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.parse(high)).setPostprocessor(p).setResizeOptions(new ResizeOptions(800, 800)).build()).setControllerListener(cl).build());
             }
         }
 

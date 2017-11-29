@@ -18,20 +18,26 @@ import java.util.List;
  * Created by zhangliang on 17/2/13.
  */
 public class SalonSample extends BaseSample {
+    private static int error = (int) (6 * Math.random());
+
     public SalonSample(Context context) {
         super(context);
         Fresco.initialize(mContext);
         FrescoSalonView.setUrlRule(new FrescoSalonView.UrlRule() {
             @Override
             public String toLowUrl(String url) {
-                String[] urls = url.split(" ");
+                if (url.startsWith(",")) return "";
+                if (url.endsWith(",")) return url.substring(0, url.length() - 1);
+                String[] urls = url.split(",");
                 if (urls.length == 2) return urls[0];
-                return null;
+                return "";
             }
 
             @Override
             public String toHighUrl(String url) {
-                String[] urls = url.split(" ");
+                if (url.endsWith(",")) return "";
+                if (url.startsWith(",")) return url.substring(1, url.length());
+                String[] urls = url.split(",");
                 if (urls.length == 2) return urls[1];
                 return url;
             }
@@ -43,11 +49,11 @@ public class SalonSample extends BaseSample {
         List<String> lows = new ArrayList<>();
         List<String> highs = new ArrayList<>();
         lows.add("res:///" + R.drawable.salon1);
-        highs.add("res:///" + R.drawable.salon2);
+        highs.add(error != 1 ? ("res:///" + R.drawable.salon2) : "");
         lows.add("res:///" + R.drawable.salon3);
-        highs.add("res:///" + R.drawable.salon4);
+        highs.add(error != 3 ? ("res:///" + R.drawable.salon4) : "");
         lows.add("res:///" + R.drawable.salon5);
-        highs.add("res:///" + R.drawable.salon6);
+        highs.add(error != 5 ? ("res:///" + R.drawable.salon6) : "");
         return init(lows, highs);
     }
 
@@ -60,9 +66,7 @@ public class SalonSample extends BaseSample {
         int padding = (int) (8 * mContext.getResources().getDisplayMetrics().density);
         int length = (mContext.getResources().getDisplayMetrics().widthPixels - (line + 1) * padding) / line;
         for (int i = 0; i < lows.size(); i++) {
-            String low = lows.get(i);
-            String high = highs.get(i);
-            urls.add((low != null) ? (low + " " + high) : high);
+            urls.add(lows.get(i) + "," + highs.get(i));
             SimpleDraweeView image = new SimpleDraweeView(mContext);
             RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(length, length);
             lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -73,7 +77,7 @@ public class SalonSample extends BaseSample {
                 image.setTranslationX((i % line - (line - 1) / 2f) * (length + padding));
                 image.setTranslationY((i / line - ((lows.size() - 1) / line) / 2f) * (length + padding));
             }
-            image.setImageURI(Uri.parse((low != null) ? low : high));
+            image.setImageURI(Uri.parse(lows.get(i)));
             image.setTag(Integer.valueOf(i));
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
