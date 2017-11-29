@@ -685,7 +685,8 @@ public abstract class SalonMaster extends SalonView {
     private static class SalonIndicator extends View implements SalonDecoration {
         private static final float CIRCLE_RADIUS = 2.8f; //圆点半径
         private static final float CIRCLE_MARGIN = 14; //圆点间距
-        private static final float STROKE_WIDTH = 1f; //线条粗细
+        private static final float SLIDER_RADIUS = 3.4f; //滑块半径
+        private static final float STROKE_WIDTH = 1; //线条粗细
         private static final float BORDER_PADDING = 36; //边界留白
 
         private int mSize = 0; //页号总量
@@ -734,7 +735,7 @@ public abstract class SalonMaster extends SalonView {
                     float l = getWidth() / 2 - w / 2;
                     float t = getHeight() - BORDER_PADDING * density - h / 2;
                     canvas.drawRect(l, t, l + w, t + h, lPaint);
-                    canvas.drawCircle(l + w * mProgress, t + h / 2, CIRCLE_RADIUS * density, sPaint);
+                    canvas.drawCircle(l + w * mProgress, t + h / 2, SLIDER_RADIUS * density, sPaint);
                 }
             }
         }
