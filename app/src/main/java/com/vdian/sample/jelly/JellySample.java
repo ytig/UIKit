@@ -3,7 +3,9 @@ package com.vdian.sample.jelly;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.vdian.sample.BaseSample;
-import com.vdian.sample.R;
 import com.vdian.sample.jelly.view.JellyView;
 
 /**
@@ -34,16 +35,47 @@ public class JellySample extends BaseSample {
     private static class MyJellyView extends JellyView {
         public MyJellyView(Context context) {
             super(context);
-            setJellyColor(getContext().getResources().getColor(R.color.colorPrimary));
+            setJellyColor(Color.rgb(253, 136, 36));
             setGravity(Gravity.CENTER);
-            final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            paint.setColor(Color.WHITE);
             final View view = new View(getContext()) {
+                private Painter painter;
+
                 @Override
                 protected void onDraw(Canvas canvas) {
                     super.onDraw(canvas);
-                    int width = getWidth(), height = getHeight();
-                    canvas.drawCircle(width / 2, height / 2, Math.min(width, height) * 0.2f / 2, paint);
+                    if (painter == null) painter = new Painter();
+                    painter.draw(this, canvas);
+                }
+
+                class Painter {
+                    private Path path;
+                    private Matrix matrix;
+                    private Paint paint;
+
+                    public Painter() {
+                        path = new Path();
+                        matrix = new Matrix();
+                        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                        paint.setColor(Color.rgb(251, 13, 27));
+                    }
+
+                    public void draw(View view, Canvas canvas) {
+                        int width = view.getWidth(), height = view.getHeight(), unit = Math.min(width, height) / 2;
+                        unit *= (1 - 0.618f);
+                        path.reset();
+                        path.moveTo(0, -unit);
+                        matrix.reset();
+                        matrix.setRotate(144);
+                        for (int i = 5 - 1; i >= 0; i--) {
+                            path.transform(matrix);
+                            if (i != 0) path.lineTo(0, -unit);
+                            else path.close();
+                        }
+                        matrix.reset();
+                        matrix.setTranslate(width / 2, height / 2);
+                        path.transform(matrix);
+                        canvas.drawPath(path, paint);
+                    }
                 }
             };
             view.setOnClickListener(new View.OnClickListener() {
