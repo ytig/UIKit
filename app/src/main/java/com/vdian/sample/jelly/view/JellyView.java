@@ -255,10 +255,20 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         }
 
         public void time(long t) {
-            float x = this.x;
-            float v = this.v;
-            this.x += v * t;
-            this.v += (-this.t * x - this.f * v) * t;
+            float x1 = this.x;
+            float v1 = this.v;
+            float a1 = -(this.t * x1 + this.f * v1);
+            float x2 = this.x + v1 * t / 2;
+            float v2 = this.v + a1 * t / 2;
+            float a2 = -(this.t * x2 + this.f * v2);
+            float x3 = this.x + v2 * t / 2;
+            float v3 = this.v + a2 * t / 2;
+            float a3 = -(this.t * x3 + this.f * v3);
+            float x4 = this.x + v3 * t;
+            float v4 = this.v + a3 * t;
+            float a4 = -(this.t * x4 + this.f * v4);
+            this.x += (v1 + 2 * (v2 + v3) + v4) * t / 6;
+            this.v += (a1 + 2 * (a2 + a3) + a4) * t / 6;
         }
 
         public boolean is(float x, float v) {
