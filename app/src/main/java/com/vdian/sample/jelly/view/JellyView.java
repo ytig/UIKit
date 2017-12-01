@@ -135,7 +135,7 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         long dt = AnimationUtils.currentAnimationTimeMillis() - mTime;
         mTime += dt;
         if (!mDelegate.isTouch()) {
-            if (dt > 0 && dt < 500) {
+            if (dt > 0 && dt <= 64) {
                 while (dt > 0) {
                     xCore.time(1);
                     yCore.time(1);
