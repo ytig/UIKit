@@ -32,14 +32,14 @@ public class WrapperSample extends BaseSample {
         header.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (90 * mContext.getResources().getDisplayMetrics().density)));
         header.setTextSize(16);
         header.setGravity(Gravity.CENTER);
-        header.setBackgroundColor(Color.DKGRAY);
+        header.setBackgroundColor(Color.LTGRAY);
         header.setTextColor(Color.WHITE);
         header.setText("HEADER");
         TextView footer = new TextView(mContext);
         footer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (90 * mContext.getResources().getDisplayMetrics().density)));
         footer.setTextSize(16);
         footer.setGravity(Gravity.CENTER);
-        footer.setBackgroundColor(Color.DKGRAY);
+        footer.setBackgroundColor(Color.LTGRAY);
         footer.setTextColor(Color.WHITE);
         footer.setText("FOOTER");
         rv.setAdapter(new AppendWrapper(new DividerWrapper(new DivSwipeWrapper(new NewAdapter(20)))).addHeaderView(header).addFooterView(footer));

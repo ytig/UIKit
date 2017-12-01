@@ -35,7 +35,7 @@ public class DividerWrapper extends ReplaceWrapper {
             int height = (int) (0.5f * getContext().getResources().getDisplayMetrics().density);
             if (height < 1) height = 1;
             divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-            divider.setBackgroundColor(Color.DKGRAY);
+            divider.setBackgroundColor(Color.LTGRAY);
             addView(divider);
         }
 
