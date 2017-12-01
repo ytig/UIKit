@@ -2,6 +2,7 @@ package com.vdian.sample.jelly.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -25,6 +26,7 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     private DampingCore yCore = new DampingCore(T, F); //纵向阻尼内核
     private TouchController mDelegate = new TouchController(this, this, true, true); //触控处理类
     private Path mPath = new Path(); //路径
+    private Matrix mMatrix = new Matrix(); //矩阵
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG); //画笔
     private JellyListener mListener; //形变监听器
 
@@ -143,8 +145,6 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         if (mListener != null) mListener.jelly(angle, scalar);
         super.onDraw(canvas);
         int width = getWidth(), height = getHeight(), unit = Math.min(width, height) / 2;
-        canvas.translate(width / 2, height / 2);
-        canvas.rotate((float) Math.toDegrees(angle));
         float x3 = (float) scalar;
         float x2 = 0.618f * x3;
         float x1 = 0.618f * x2;
@@ -172,6 +172,10 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         mPath.cubicTo(px6, -py6, px5, -py5, px4, -py4);
         mPath.cubicTo(px3, -py3, px2, -py2, px1, -py1);
         mPath.close();
+        mMatrix.reset();
+        mMatrix.setRotate((float) Math.toDegrees(angle));
+        mMatrix.postTranslate(width / 2, height / 2);
+        mPath.transform(mMatrix);
         canvas.drawPath(mPath, mPaint);
     }
 
