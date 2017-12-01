@@ -29,17 +29,17 @@ public class WrapperSample extends BaseSample {
         rv.setLayoutManager(new LinearLayoutManager(mContext));
 
         TextView header = new TextView(mContext);
-        header.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (60 * mContext.getResources().getDisplayMetrics().density)));
+        header.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (90 * mContext.getResources().getDisplayMetrics().density)));
         header.setTextSize(16);
         header.setGravity(Gravity.CENTER);
-        header.setBackgroundColor(Color.LTGRAY);
+        header.setBackgroundColor(Color.DKGRAY);
         header.setTextColor(Color.WHITE);
         header.setText("HEADER");
         TextView footer = new TextView(mContext);
-        footer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (60 * mContext.getResources().getDisplayMetrics().density)));
+        footer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (90 * mContext.getResources().getDisplayMetrics().density)));
         footer.setTextSize(16);
         footer.setGravity(Gravity.CENTER);
-        footer.setBackgroundColor(Color.LTGRAY);
+        footer.setBackgroundColor(Color.DKGRAY);
         footer.setTextColor(Color.WHITE);
         footer.setText("FOOTER");
         rv.setAdapter(new AppendWrapper(new DividerWrapper(new DivSwipeWrapper(new NewAdapter(20)))).addHeaderView(header).addFooterView(footer));
@@ -56,8 +56,8 @@ public class WrapperSample extends BaseSample {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             TextView tv = new TextView(parent.getContext());
-            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (80 * parent.getContext().getResources().getDisplayMetrics().density)));
-            tv.setTextSize(16);
+            tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int) (56 * parent.getContext().getResources().getDisplayMetrics().density)));
+            tv.setTextSize(14);
             tv.setGravity(Gravity.CENTER);
             tv.setBackgroundColor(Color.rgb(238, 238, 238));
             return new RecyclerView.ViewHolder(tv) {
@@ -66,7 +66,7 @@ public class WrapperSample extends BaseSample {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((TextView) holder.itemView).setText("Position" + position);
+            ((TextView) holder.itemView).setText("Item" + position);
         }
 
         @Override

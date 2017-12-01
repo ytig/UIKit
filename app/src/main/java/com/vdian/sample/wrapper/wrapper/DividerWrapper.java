@@ -32,10 +32,10 @@ public class DividerWrapper extends ReplaceWrapper {
             setOrientation(LinearLayout.VERTICAL);
             addView(view);
             View divider = new View(getContext());
-            int height = (int) (1 * getContext().getResources().getDisplayMetrics().density);
+            int height = (int) (0.5f * getContext().getResources().getDisplayMetrics().density);
             if (height < 1) height = 1;
             divider.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height));
-            divider.setBackgroundColor(Color.LTGRAY);
+            divider.setBackgroundColor(Color.DKGRAY);
             addView(divider);
         }
 

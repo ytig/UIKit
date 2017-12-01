@@ -96,7 +96,7 @@ public class AlipaySample extends BaseSample {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((TextView) holder.itemView).setText("Position" + position);
+            ((TextView) holder.itemView).setText("Item" + position);
         }
 
         @Override

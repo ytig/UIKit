@@ -32,13 +32,13 @@ public class DivSwipeWrapper extends SwipeWrapper {
     protected View onCreateMenu(ViewGroup parent, int viewType) {
         TextView menu = new TextView(parent.getContext());
         menu.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        int padding = (int) (33 * parent.getContext().getResources().getDisplayMetrics().density);
-        menu.setPadding(padding, 0, padding, 0);
+        int padding = (int) (30 * parent.getContext().getResources().getDisplayMetrics().density);
+        menu.setPadding((int) (0.618f * padding), 0, padding, 0);
         menu.setBackgroundColor(Color.RED);
         menu.setGravity(Gravity.CENTER);
         menu.setTextColor(Color.WHITE);
-        menu.setTextSize(16);
-        menu.setText("Delete");
+        menu.setTextSize(14);
+        menu.setText("Del.");
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
