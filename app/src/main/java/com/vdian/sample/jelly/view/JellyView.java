@@ -26,6 +26,7 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     private TouchController mDelegate = new TouchController(this, this, true, true); //触控处理类
     private Path mPath = new Path(); //路径
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG); //画笔
+    private JellyListener mListener; //形变监听器
 
     public JellyView(Context context) {
         super(context);
@@ -94,8 +95,8 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     public boolean move(float moveX, float moveY) {
         float range = ((getContext().getResources().getDisplayMetrics().widthPixels + getContext().getResources().getDisplayMetrics().heightPixels) / 2) / D;
         float touch = P;
-        xCore.x = overflow(range, touch, xCore.x, -moveX);
-        yCore.x = overflow(range, touch, yCore.x, -moveY);
+        xCore.x = spring(range, touch, xCore.x, -moveX);
+        yCore.x = spring(range, touch, yCore.x, -moveY);
         invalidate();
         return true;
     }
@@ -110,19 +111,6 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     @Override
     public void cancel() {
         up(0, 0);
-    }
-
-    private static float overflow(float range, float touch, float x, float dx) {
-        boolean negative = x < 0 || (x == 0 && dx > 0);
-        if (negative) {
-            dx *= -1;
-            x *= -1;
-        }
-        double tmp = range * touch * Math.pow((range / (range - x)), 1 / touch) - range * touch;
-        tmp = (tmp * (tmp - dx) < 0) ? 0 : tmp - dx;
-        x = (float) (range - range * Math.pow(1 + tmp / (range * touch), -touch));
-        if (negative) x *= -1;
-        return x;
     }
 
     @Override
@@ -150,12 +138,11 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
 
     @Override
     protected void onDraw(Canvas canvas) {
-        float K = 0.552f;
         double angle = angle(xCore.x, yCore.x);
         double scalar = Math.sqrt(xCore.x * xCore.x + yCore.x * yCore.x);
+        if (mListener != null) mListener.jelly(angle, scalar);
         super.onDraw(canvas);
-        int width = getWidth(), height = getHeight();
-        int unit = Math.min(width, height) / 2;
+        int width = getWidth(), height = getHeight(), unit = Math.min(width, height) / 2;
         canvas.translate(width / 2, height / 2);
         canvas.rotate((float) Math.toDegrees(angle));
         float x3 = (float) scalar;
@@ -167,15 +154,15 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         px1 = x1;
         py1 = 0;
         px2 = x1;
-        py2 = K * unit;
-        px3 = x2 - K * (x2 - x1);
+        py2 = 0.552f * unit;
+        px3 = x2 - 0.552f * (x2 - x1);
         py3 = unit;
         px4 = x2;
         py4 = unit;
-        px5 = x2 + K * (x3 - x2);
+        px5 = x2 + 0.552f * (x3 - x2);
         py5 = unit;
         px6 = x3;
-        py6 = K * unit;
+        py6 = 0.552f * unit;
         px7 = x3;
         py7 = 0;
         mPath.reset();
@@ -186,6 +173,33 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         mPath.cubicTo(px3, -py3, px2, -py2, px1, -py1);
         mPath.close();
         canvas.drawPath(mPath, mPaint);
+    }
+
+    /**
+     * 设置形变监听器
+     *
+     * @param listener
+     */
+    public void setJellyListener(JellyListener listener) {
+        mListener = listener;
+        if (mListener != null) invalidate();
+    }
+
+    public interface JellyListener {
+        void jelly(double angle, double scalar);
+    }
+
+    private static float spring(float range, float touch, float x, float dx) {
+        boolean negative = x < 0 || (x == 0 && dx > 0);
+        if (negative) {
+            dx *= -1;
+            x *= -1;
+        }
+        double tmp = range * touch * Math.pow((range / (range - x)), 1 / touch) - range * touch;
+        tmp = (tmp * (tmp - dx) < 0) ? 0 : tmp - dx;
+        x = (float) (range - range * Math.pow(1 + tmp / (range * touch), -touch));
+        if (negative) x *= -1;
+        return x;
     }
 
     private static double angle(double x, double y) {
