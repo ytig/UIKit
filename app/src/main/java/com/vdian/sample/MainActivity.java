@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.vdian.sample.alipay.AlipaySample;
 import com.vdian.sample.fold.FoldSample;
+import com.vdian.sample.jelly.JellySample;
 import com.vdian.sample.notice.NoticeSample;
 import com.vdian.sample.refresh.RefreshSample;
 import com.vdian.sample.salon.SalonSample;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
             new Sample(SwapSample.class),
             new Sample(NoticeSample.class),
             new Sample(TableSample.class),
-            new Sample(SalonSample.class)
+            new Sample(SalonSample.class),
+            new Sample(JellySample.class)
     };
 
     @Override
