@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.vdian.sample.BaseSample;
+import com.vdian.sample.R;
 import com.vdian.sample.jelly.view.JellyView;
 
 /**
@@ -23,6 +24,7 @@ public class JellySample extends BaseSample {
         content.setClipChildren(false);
         content.setGravity(Gravity.CENTER);
         JellyView jelly = new JellyView(mContext);
+        jelly.setJellyColor(mContext.getResources().getColor(R.color.colorPrimary));
         content.addView(jelly, new ViewGroup.LayoutParams((int) (44 * mContext.getResources().getDisplayMetrics().density), (int) (44 * mContext.getResources().getDisplayMetrics().density)));
         return content;
     }
