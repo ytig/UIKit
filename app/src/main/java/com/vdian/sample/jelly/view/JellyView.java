@@ -2,6 +2,7 @@ package com.vdian.sample.jelly.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -21,6 +22,8 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     private static final float D = 2f; //弹性除数
     private static final float P = 0.346f; //弹性次方
 
+    private int mFillColor = Color.TRANSPARENT; //填充颜色
+    private int mStrokeColor = Color.TRANSPARENT; //边框颜色
     private long mTime = 0; //当前时间戳
     private DampingCore xCore = new DampingCore(T, F); //横向阻尼内核
     private DampingCore yCore = new DampingCore(T, F); //纵向阻尼内核
@@ -54,10 +57,21 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
     /**
      * 设置背景颜色
      *
-     * @param color
+     * @param fill
      */
-    public void setJellyColor(int color) {
-        mPaint.setColor(color);
+    public void setJellyColor(int fill) {
+        setJellyColor(fill, Color.TRANSPARENT);
+    }
+
+    /**
+     * 设置背景颜色
+     *
+     * @param fill
+     * @param stroke
+     */
+    public void setJellyColor(int fill, int stroke) {
+        mFillColor = fill;
+        mStrokeColor = stroke;
         invalidate();
     }
 
@@ -176,7 +190,17 @@ public class JellyView extends RelativeLayout implements TouchController.TouchLi
         mMatrix.setRotate((float) Math.toDegrees(angle));
         mMatrix.postTranslate(width / 2, height / 2);
         mPath.transform(mMatrix);
-        canvas.drawPath(mPath, mPaint);
+        if (mFillColor != Color.TRANSPARENT) {
+            mPaint.setColor(mFillColor);
+            mPaint.setStyle(Paint.Style.FILL);
+            canvas.drawPath(mPath, mPaint);
+        }
+        if (mStrokeColor != Color.TRANSPARENT) {
+            mPaint.setColor(mStrokeColor);
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(unit / 11);
+            canvas.drawPath(mPath, mPaint);
+        }
     }
 
     /**

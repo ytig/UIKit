@@ -35,7 +35,7 @@ public class JellySample extends BaseSample {
     private static class MyJellyView extends JellyView {
         public MyJellyView(Context context) {
             super(context);
-            setJellyColor(Color.rgb(253, 136, 36));
+            setJellyColor(Color.rgb(253, 136, 36), Color.rgb(0, 0, 0));
             setGravity(Gravity.CENTER);
             final View view = new View(getContext()) {
                 private Painter painter;
